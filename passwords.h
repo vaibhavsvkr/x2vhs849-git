@@ -3,19 +3,27 @@
 
 #include <string>
 #include <map>
+#include <utility>
 
 using std::string;
 using std::map;
+using std::pair;
+using std::make_pair;
 
-static map<string, string> passwordDatabase = {
-    {"amit",   "tagore#1861"},
-    {"neha",   "delhi@456"},
-    {"rahul",  "cricket!789"},
-    {"priya",  "cockroach321"},
-    {"arjun",  "dadarlocal2024"},
-    {"kavya",  "idli#Dosa@45"},
-    {"rohan",  "kolkata99"},
-    {"ananya", "veena@12"}
+struct UserRecord {
+    int userId;
+    string password;
+};
+
+static map<string, UserRecord> passwordDatabase = {
+    {"amit",   {1001, "tagore#1861"}},
+    {"neha",   {1002, "delhi@456"}},
+    {"rahul",  {1003, "cricket!789"}},
+    {"priya",  {1004, "cockroach321"}},
+    {"arjun",  {1005, "dadarlocal2024"}},
+    {"kavya",  {1006, "idli#Dosa@45"}},
+    {"rohan",  {1007, "kolkata99"}},
+    {"ananya", {1008, "veena@12"}}
 };
 
 bool userExists(string name)
@@ -26,9 +34,17 @@ bool userExists(string name)
 string getPassword(string name)
 {
     if (userExists(name)) {
-        return passwordDatabase[name];
+        return passwordDatabase[name].password;
     }
     return "";
+}
+
+int getUserId(string name)
+{
+    if (userExists(name)) {
+        return passwordDatabase[name].userId;
+    }
+    return -1;
 }
 
 #endif
